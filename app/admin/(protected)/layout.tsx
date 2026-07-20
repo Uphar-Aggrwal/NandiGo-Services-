@@ -15,8 +15,8 @@ const links = [
   ["Admin Users", "/admin/users"]
 ];
 
-export default function ProtectedAdminLayout({ children }: { children: React.ReactNode }) {
-  requireAdmin();
+export default async function ProtectedAdminLayout({ children }: { children: React.ReactNode }) {
+  await requireAdmin();
 
   return (
     <section className="admin-shell">

@@ -53,7 +53,7 @@ export default async function TestimonialsPage() {
               <article key={item.id} className="fame-card">
                 <SafeImage src={item.imageUrl} alt={item.title} />
                 <h3>{item.title}</h3>
-                <p>{item.issuingBody} · {item.awardYear}</p>
+                <p>{item.issuingBody} - {item.awardYear}</p>
                 <p>{item.description}</p>
               </article>
             ))}

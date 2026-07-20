@@ -7,13 +7,21 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export async function generateMetadata() {
-  const settings = await getSiteSettings();
-  if (!settings) return {};
-  return buildMetadata(settings, {
-    title: settings.aboutTitle,
-    description: settings.aboutBody,
-    path: "/about"
-  });
+  try {
+    const settings = await getSiteSettings();
+    if (!settings) return {};
+    return buildMetadata(settings, {
+      title: settings.aboutTitle,
+      description: settings.aboutBody,
+      path: "/about"
+    });
+  } catch {
+    return buildMetadata({}, {
+      title: "About NandiGo",
+      description: "NandiGo company details are temporarily unavailable.",
+      path: "/about"
+    });
+  }
 }
 
 export default async function AboutPage() {

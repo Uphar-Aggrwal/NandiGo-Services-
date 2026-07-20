@@ -10,13 +10,21 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export async function generateMetadata() {
-  const content = await getProfessionalServicesPage();
-  if (!content) return {};
-  return buildMetadata(content, {
-    title: content.title,
-    description: content.description,
-    path: "/professional-services"
-  });
+  try {
+    const content = await getProfessionalServicesPage();
+    if (!content) return {};
+    return buildMetadata(content, {
+      title: content.title,
+      description: content.description,
+      path: "/professional-services"
+    });
+  } catch {
+    return buildMetadata({}, {
+      title: "Professional Services | NandiGo",
+      description: "NandiGo professional services are temporarily unavailable.",
+      path: "/professional-services"
+    });
+  }
 }
 
 export default async function ProfessionalServicesPage() {

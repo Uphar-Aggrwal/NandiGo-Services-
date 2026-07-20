@@ -2,8 +2,8 @@ import { redirect } from "next/navigation";
 import { login } from "@/app/actions/auth";
 import { isAdminAuthenticated } from "@/lib/auth";
 
-export default function AdminLoginPage({ searchParams }: { searchParams?: { error?: string } }) {
-  if (isAdminAuthenticated()) {
+export default async function AdminLoginPage({ searchParams }: { searchParams?: { error?: string } }) {
+  if (await isAdminAuthenticated()) {
     redirect("/admin/dashboard");
   }
 

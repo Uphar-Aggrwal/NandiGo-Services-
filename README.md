@@ -4,7 +4,7 @@ Production rebuild of the NandiGo destination management company website.
 
 ## Stack
 
-- Next.js 14 App Router
+- Next.js 16 App Router
 - Neon Postgres
 - Drizzle ORM
 - Cloudflare R2 media storage

@@ -61,7 +61,7 @@ function validateOptionalMap(value: string | null) {
 }
 
 export async function saveState(formData: FormData) {
-  requireAdmin();
+  await requireAdmin();
   const path = "/admin/states";
   try {
     const id = formOptionalText(formData, "id");
@@ -108,7 +108,7 @@ export async function saveState(formData: FormData) {
 }
 
 export async function deleteState(formData: FormData) {
-  requireAdmin();
+  await requireAdmin();
   const path = "/admin/states";
   try {
     const id = formText(formData, "id");
@@ -132,7 +132,7 @@ export async function deleteState(formData: FormData) {
 }
 
 export async function saveCategory(formData: FormData) {
-  requireAdmin();
+  await requireAdmin();
   const path = "/admin/categories";
   try {
     const id = formOptionalText(formData, "id");
@@ -176,7 +176,7 @@ export async function saveCategory(formData: FormData) {
 }
 
 export async function deleteCategory(formData: FormData) {
-  requireAdmin();
+  await requireAdmin();
   const path = "/admin/categories";
   try {
     const id = formText(formData, "id");
@@ -200,7 +200,7 @@ export async function deleteCategory(formData: FormData) {
 }
 
 export async function savePackage(formData: FormData) {
-  requireAdmin();
+  await requireAdmin();
   const path = "/admin/packages";
   try {
     const id = formOptionalText(formData, "id");
@@ -288,7 +288,7 @@ export async function savePackage(formData: FormData) {
 }
 
 export async function deletePackage(formData: FormData) {
-  requireAdmin();
+  await requireAdmin();
   const path = "/admin/packages";
   try {
     const id = formText(formData, "id");
@@ -302,7 +302,7 @@ export async function deletePackage(formData: FormData) {
 }
 
 export async function deletePackageImage(formData: FormData) {
-  requireAdmin();
+  await requireAdmin();
   const path = "/admin/packages";
   try {
     const id = formText(formData, "id");
@@ -318,7 +318,7 @@ export async function deletePackageImage(formData: FormData) {
 }
 
 export async function saveTestimonial(formData: FormData) {
-  requireAdmin();
+  await requireAdmin();
   const path = "/admin/testimonials";
   try {
     const id = formOptionalText(formData, "id");
@@ -348,7 +348,7 @@ export async function saveTestimonial(formData: FormData) {
 }
 
 export async function deleteTestimonial(formData: FormData) {
-  requireAdmin();
+  await requireAdmin();
   const path = "/admin/testimonials";
   try {
     const id = formText(formData, "id");
@@ -362,7 +362,7 @@ export async function deleteTestimonial(formData: FormData) {
 }
 
 export async function saveHallOfFame(formData: FormData) {
-  requireAdmin();
+  await requireAdmin();
   const path = "/admin/hall-of-fame";
   try {
     const id = formOptionalText(formData, "id");
@@ -390,7 +390,7 @@ export async function saveHallOfFame(formData: FormData) {
 }
 
 export async function deleteHallOfFame(formData: FormData) {
-  requireAdmin();
+  await requireAdmin();
   const path = "/admin/hall-of-fame";
   try {
     const id = formText(formData, "id");
@@ -404,7 +404,7 @@ export async function deleteHallOfFame(formData: FormData) {
 }
 
 export async function saveBlogPost(formData: FormData) {
-  requireAdmin();
+  await requireAdmin();
   const path = "/admin/blogs";
   try {
     const id = formOptionalText(formData, "id");
@@ -439,7 +439,7 @@ export async function saveBlogPost(formData: FormData) {
 }
 
 export async function deleteBlogPost(formData: FormData) {
-  requireAdmin();
+  await requireAdmin();
   const path = "/admin/blogs";
   try {
     const id = formText(formData, "id");
@@ -453,7 +453,7 @@ export async function deleteBlogPost(formData: FormData) {
 }
 
 export async function saveContent(formData: FormData) {
-  requireAdmin();
+  await requireAdmin();
   const path = "/admin/content";
   try {
     const section = formText(formData, "section");
@@ -676,7 +676,7 @@ export async function saveContent(formData: FormData) {
 }
 
 export async function saveLead(formData: FormData) {
-  requireAdmin();
+  await requireAdmin();
   const path = "/admin/leads";
   try {
     const id = formOptionalText(formData, "id");
@@ -701,7 +701,7 @@ export async function saveLead(formData: FormData) {
 }
 
 export async function deleteLead(formData: FormData) {
-  requireAdmin();
+  await requireAdmin();
   const path = "/admin/leads";
   try {
     await getDb().delete(leads).where(eq(leads.id, formText(formData, "id")));
@@ -712,7 +712,7 @@ export async function deleteLead(formData: FormData) {
 }
 
 export async function saveAdminUser(formData: FormData) {
-  requireAdmin();
+  await requireAdmin();
   const path = "/admin/users";
   try {
     const id = formOptionalText(formData, "id");
@@ -739,7 +739,7 @@ export async function saveAdminUser(formData: FormData) {
 }
 
 export async function deleteAdminUser(formData: FormData) {
-  requireAdmin();
+  await requireAdmin();
   const path = "/admin/users";
   try {
     await getDb().delete(adminUsers).where(eq(adminUsers.id, formText(formData, "id")));

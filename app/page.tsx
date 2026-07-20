@@ -13,15 +13,19 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export async function generateMetadata() {
-  const data = await getHomePageData();
-  if (!data.home) {
+  try {
+    const data = await getHomePageData();
+    if (!data.home) {
+      return buildMetadata({}, { title: "NandiGo", description: "Curated India travel experiences by NandiGo." });
+    }
+    return buildMetadata(data.home, {
+      title: "NandiGo | Destination Management Company",
+      description: data.home.heroSubtitle,
+      path: "/"
+    });
+  } catch {
     return buildMetadata({}, { title: "NandiGo", description: "Curated India travel experiences by NandiGo." });
   }
-  return buildMetadata(data.home, {
-    title: "NandiGo | Destination Management Company",
-    description: data.home.heroSubtitle,
-    path: "/"
-  });
 }
 
 export default async function HomePage() {
@@ -143,7 +147,7 @@ export default async function HomePage() {
               <article key={item.id} className="fame-card">
                 <SafeImage src={item.imageUrl} alt={item.title} />
                 <h3>{item.title}</h3>
-                <p>{item.issuingBody} · {item.awardYear}</p>
+                <p>{item.issuingBody} - {item.awardYear}</p>
                 <p>{item.description}</p>
               </article>
             ))}

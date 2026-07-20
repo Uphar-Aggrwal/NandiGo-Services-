@@ -11,13 +11,21 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export async function generateMetadata() {
-  const data = await getSacredPageData();
-  if (!data.content) return {};
-  return buildMetadata(data.content, {
-    title: data.content.heroTitle,
-    description: data.content.heroSubtitle,
-    path: "/sacred"
-  });
+  try {
+    const data = await getSacredPageData();
+    if (!data.content) return {};
+    return buildMetadata(data.content, {
+      title: data.content.heroTitle,
+      description: data.content.heroSubtitle,
+      path: "/sacred"
+    });
+  } catch {
+    return buildMetadata({}, {
+      title: "Sacred Travel by NandiGo",
+      description: "NandiGo sacred wing details are temporarily unavailable.",
+      path: "/sacred"
+    });
+  }
 }
 
 export default async function SacredPage() {

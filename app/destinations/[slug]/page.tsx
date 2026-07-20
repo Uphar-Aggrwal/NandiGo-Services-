@@ -11,13 +11,21 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const data = await getStatePage(params.slug);
-  if (!data) return {};
-  return buildMetadata(data.state, {
-    title: `${data.state.name} Packages | NandiGo`,
-    description: data.state.summary,
-    path: `/destinations/${data.state.slug}`
-  });
+  try {
+    const data = await getStatePage(params.slug);
+    if (!data) return {};
+    return buildMetadata(data.state, {
+      title: `${data.state.name} Packages | NandiGo`,
+      description: data.state.summary,
+      path: `/destinations/${data.state.slug}`
+    });
+  } catch {
+    return buildMetadata({}, {
+      title: "NandiGo Destination",
+      description: "NandiGo destination details are temporarily unavailable.",
+      path: `/destinations/${params.slug}`
+    });
+  }
 }
 
 export default async function StatePage({ params }: { params: { slug: string } }) {

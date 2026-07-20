@@ -10,13 +10,21 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const data = await getCategoryPage(params.slug);
-  if (!data) return {};
-  return buildMetadata(data.category, {
-    title: `${data.category.name} Packages | NandiGo`,
-    description: data.category.summary,
-    path: `/experiences/${data.category.slug}`
-  });
+  try {
+    const data = await getCategoryPage(params.slug);
+    if (!data) return {};
+    return buildMetadata(data.category, {
+      title: `${data.category.name} Packages | NandiGo`,
+      description: data.category.summary,
+      path: `/experiences/${data.category.slug}`
+    });
+  } catch {
+    return buildMetadata({}, {
+      title: "NandiGo Experience",
+      description: "NandiGo experience details are temporarily unavailable.",
+      path: `/experiences/${params.slug}`
+    });
+  }
 }
 
 export default async function CategoryPage({ params }: { params: { slug: string } }) {

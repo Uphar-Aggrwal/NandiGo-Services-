@@ -12,7 +12,7 @@ export function getDb() {
   if (!client) {
     client = postgres(requireEnv("DATABASE_URL"), {
       max: 5,
-      connect_timeout: 8,
+      connect_timeout: 2,
       idle_timeout: 20
     });
   }

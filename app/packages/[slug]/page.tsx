@@ -12,13 +12,21 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const item = await getPackagePage(params.slug);
-  if (!item) return {};
-  return buildMetadata(item, {
-    title: `${item.name} | NandiGo`,
-    description: item.description,
-    path: `/packages/${item.slug}`
-  });
+  try {
+    const item = await getPackagePage(params.slug);
+    if (!item) return {};
+    return buildMetadata(item, {
+      title: `${item.name} | NandiGo`,
+      description: item.description,
+      path: `/packages/${item.slug}`
+    });
+  } catch {
+    return buildMetadata({}, {
+      title: "NandiGo Package",
+      description: "NandiGo package details are temporarily unavailable.",
+      path: `/packages/${params.slug}`
+    });
+  }
 }
 
 export default async function PackagePage({ params }: { params: { slug: string } }) {

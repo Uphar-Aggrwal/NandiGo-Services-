@@ -9,13 +9,21 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const post = await getBlogPost(params.slug);
-  if (!post) return {};
-  return buildMetadata(post, {
-    title: `${post.title} | NandiGo`,
-    description: post.excerpt,
-    path: `/blog/${post.slug}`
-  });
+  try {
+    const post = await getBlogPost(params.slug);
+    if (!post) return {};
+    return buildMetadata(post, {
+      title: `${post.title} | NandiGo`,
+      description: post.excerpt,
+      path: `/blog/${post.slug}`
+    });
+  } catch {
+    return buildMetadata({}, {
+      title: "NandiGo Blog",
+      description: "NandiGo blog details are temporarily unavailable.",
+      path: `/blog/${params.slug}`
+    });
+  }
 }
 
 export default async function BlogPostPage({ params }: { params: { slug: string } }) {

@@ -35,8 +35,9 @@ export function isValidSessionCookie(value: string | undefined) {
   }
 }
 
-export function setAdminSession() {
-  cookies().set(COOKIE_NAME, createSessionCookieValue(), {
+export async function setAdminSession() {
+  const cookieStore = await cookies();
+  cookieStore.set(COOKIE_NAME, createSessionCookieValue(), {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
@@ -45,16 +46,18 @@ export function setAdminSession() {
   });
 }
 
-export function clearAdminSession() {
-  cookies().delete(COOKIE_NAME);
+export async function clearAdminSession() {
+  const cookieStore = await cookies();
+  cookieStore.delete(COOKIE_NAME);
 }
 
-export function isAdminAuthenticated() {
-  return isValidSessionCookie(cookies().get(COOKIE_NAME)?.value);
+export async function isAdminAuthenticated() {
+  const cookieStore = await cookies();
+  return isValidSessionCookie(cookieStore.get(COOKIE_NAME)?.value);
 }
 
-export function requireAdmin() {
-  if (!isAdminAuthenticated()) {
+export async function requireAdmin() {
+  if (!(await isAdminAuthenticated())) {
     redirect("/admin");
   }
 }

@@ -36,11 +36,11 @@ export async function login(formData: FormData) {
     redirect("/admin?error=Invalid%20admin%20password.");
   }
 
-  setAdminSession();
+  await setAdminSession();
   redirect("/admin/dashboard");
 }
 
 export async function logout() {
-  clearAdminSession();
+  await clearAdminSession();
   redirect("/admin");
 }

@@ -1,7 +1,6 @@
-import "dotenv/config";
-
 import { eq } from "drizzle-orm";
-import { getDb } from "@/lib/db";
+import { drizzle } from "drizzle-orm/postgres-js";
+import postgres from "postgres";
 import {
   categories,
   homepageContent,
@@ -9,10 +8,21 @@ import {
   sacredWingContent,
   siteSettings,
   states
-} from "@/lib/db/schema";
-import { slugify } from "@/lib/slug";
+} from "../lib/db/schema";
+import * as schema from "../lib/db/schema";
+import { slugify } from "../lib/slug";
 
-const db = getDb();
+if (!process.env.DATABASE_URL) {
+  console.error("MISSING_INPUT:DATABASE_URL");
+  process.exit(1);
+}
+
+const client = postgres(process.env.DATABASE_URL, {
+  max: 1,
+  connect_timeout: 10,
+  idle_timeout: 5
+});
+const db = drizzle(client, { schema });
 
 const stateNames = [
   "Uttar Pradesh",
@@ -198,8 +208,9 @@ async function main() {
 main()
   .then(() => {
     console.log("NandiGo seed complete.");
-    process.exit(0);
+    return client.end();
   })
+  .then(() => process.exit(0))
   .catch((error) => {
     console.error(error);
     process.exit(1);

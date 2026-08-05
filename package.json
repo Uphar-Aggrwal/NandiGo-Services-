@@ -8,7 +8,7 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate",
+    "db:migrate": "tsx scripts/apply-migration.ts",
     "db:push": "drizzle-kit push",
     "db:seed": "tsx drizzle/seed.ts",
     "hash-password": "node scripts/hash-password.mjs"
